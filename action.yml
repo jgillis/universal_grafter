@@ -35,7 +35,7 @@ runs:
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: |
          unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
-         cp -R ${{ inputs.destination_path }}/dummy ${{ inputs.destination_path }}
+         cp -r ${{ inputs.destination_path }}/dummy/* ${{ inputs.destination_path }}
          rm -rf ${{ inputs.destination_path }}/dummy ${{ inputs.destination_path }}/dummy-1.0.dist-info
       shell: bash
 
