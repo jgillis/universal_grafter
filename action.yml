@@ -30,7 +30,7 @@ runs:
       id: create-wheel
     - name: Repair wheel
       run: |
-        ./graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
+        ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
