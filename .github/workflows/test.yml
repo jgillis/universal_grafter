@@ -5,12 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: test
     steps:
-      - name: Setup Python
-        uses: actions/setup-python@v2.3.1
-        with:
-          python-version: 3.9
-      - run: pip install
-      - run: mkdir install
+      - run: mkdir install && touch install/foo.txt
       - id: foo
         uses: jgillis/universal_grafter@master
         with:

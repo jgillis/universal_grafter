@@ -18,6 +18,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Setup Python
+      uses: actions/setup-python@v2.3.1
+      with:
+        python-version: 3.9
     - run: pip install wheel==0.31.1
       shell: bash
     - name: Create dummy wheel from {{ inputs.source_path }}
