@@ -18,12 +18,17 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: pip install wheel==0.31.1
+      shell: bash
     - name: Create dummy wheel from {{ inputs.source_path }}
       run: python ${{ github.action_path }}/create_wheel_local.py ${{ inputs.bitness }} ${{ inputs.dockcross }} ${{ inputs.source_path }}
+      shell: bash
       id: create-wheel
     - name: Repair wheel
       run: |
-      ./graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
+        ./graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
+      shell: bash
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
+      shell: bash
 
