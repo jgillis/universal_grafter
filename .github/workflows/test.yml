@@ -13,4 +13,5 @@ jobs:
           destination_path: install_grafted
           dockcross: manylinux1-x64
           bitness: 64
+      - run: ls install_grafted
 

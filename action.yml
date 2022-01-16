@@ -33,6 +33,9 @@ runs:
         ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash
     - name: Extract repaired wheel to {{ inputs.destination_path }}
-      run: unzip ${{steps.create-wheel.outputs.wheel_name}} "dummy/**/*" -d ${{ inputs.destination_path }}/
+      run: |
+         unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
+         cp -R ${{ inputs.destination_path }}/dummy ${{ inputs.destination_path }}
+         rm -rf ${{ inputs.destination_path }}/dummy ${{ inputs.destination_path }}/dummy-1.0.dist-info
       shell: bash
 
