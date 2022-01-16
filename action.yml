@@ -1,0 +1,29 @@
+name: 'Universal grafter'
+description: 'Graft all the shared libraries.'
+inputs:
+  source_path:
+    description: 'Absolute or relative path'
+    required: true
+  destination_path:
+    description: 'Absolute or relative path'
+    required: true
+  dockcross:
+    description: 'specify a dockcross container (only for linux)'
+    required: false
+    default: 'none'
+  bitness:
+    description: 'bitness'
+    required: false
+    default: 64
+runs:
+  using: "composite"
+  steps:
+    - name: Create dummy wheel from {{ inputs.source_path }}
+      run: python ${{ github.action_path }}/create_wheel_local.py ${{ inputs.bitness }} ${{ inputs.dockcross }} ${{ inputs.source_path }}
+      id: create-wheel
+    - name: Repair wheel
+      run: |
+      ./graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
+    - name: Extract repaired wheel to {{ inputs.destination_path }}
+      run: unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
+
