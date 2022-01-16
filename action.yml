@@ -32,6 +32,10 @@ runs:
       run: |
         ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash
+    - name: Repair wheel
+      if: runner.os == 'macOS'
+      run: |
+        DYLD_LIBRARY_PATH=/Users/Yacoda/miniconda3/lib delocate-wheel -k -w . -L "" ${{steps.create-wheel.outputs.wheel_name}}
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: |
          unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
