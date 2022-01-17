@@ -40,7 +40,7 @@ runs:
     - name: Repair wheel
       if: runner.os == 'macOS'
       run: |
-        pip install git+https://github.com/jgillis/universal_grafter.git@master
+        pip install git+https://github.com/jgillis/delocate.git@master
         DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash
     - name: Extract repaired wheel to {{ inputs.destination_path }}
