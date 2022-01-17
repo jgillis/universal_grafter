@@ -15,6 +15,10 @@ inputs:
     description: 'bitness'
     required: false
     default: 64
+  search_paths:
+    description: 'where to look for additional libraries'
+    required: false
+    default: ''
 runs:
   using: "composite"
   steps:
@@ -29,13 +33,15 @@ runs:
       shell: bash
       id: create-wheel
     - name: Repair wheel
+      if: runner.os == 'Linux'
       run: |
         ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash
     - name: Repair wheel
       if: runner.os == 'macOS'
       run: |
-        DYLD_LIBRARY_PATH=/Users/Yacoda/miniconda3/lib delocate-wheel -k -w . -L "" ${{steps.create-wheel.outputs.wheel_name}}
+        pip install git+https://github.com/jgillis/universal_grafter.git@master
+        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: |
