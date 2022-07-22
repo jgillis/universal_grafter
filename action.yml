@@ -14,7 +14,7 @@ inputs:
   bitness:
     description: 'bitness'
     required: false
-    default: 64
+    default: '64'
   search_paths:
     description: 'where to look for additional libraries'
     required: false
