@@ -25,7 +25,9 @@ runs:
     - uses: conda-incubator/setup-miniconda@v2.2.0
       with:
         python-version: 3.9
-    - run: echo runner.os: ${{ runner.os }}
+    - run: |
+        echo "runner.os  ${{ runner.os }}"
+      shell: bash
     - run: pip install wheel==0.31.1
       shell: bash
     - name: Create dummy wheel from {{ inputs.source_path }}
