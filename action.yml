@@ -46,7 +46,7 @@ runs:
       if: runner.os == 'macOS'
       run: |
         pip install git+https://github.com/jgillis/delocate.git@master
-        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" --skip-libs "libknitro" ${{steps.create-wheel.outputs.wheel_name}}
+        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" --skip-libs "libknitro:libhsl" ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash -el {0}
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: |
