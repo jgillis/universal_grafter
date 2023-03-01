@@ -19,6 +19,10 @@ inputs:
     description: 'where to look for additional libraries'
     required: false
     default: ''
+  skip_libs:
+    description: 'libaries to ignore (colon-separated parts of filenames)'
+    required: false
+    default: 'libknitro:libhsl:libworhp'
 runs:
   using: "composite"
   steps:
@@ -46,7 +50,7 @@ runs:
       if: runner.os == 'macOS'
       run: |
         pip install git+https://github.com/jgillis/delocate.git@master
-        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" --skip-libs "libknitro:libhsl" ${{steps.create-wheel.outputs.wheel_name}}
+        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" --skip-libs ${{ inputs.skip_libs }} ${{steps.create-wheel.outputs.wheel_name}}
       shell: bash -el {0}
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: |
