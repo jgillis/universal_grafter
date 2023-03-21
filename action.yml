@@ -39,6 +39,7 @@ runs:
       shell: bash -el {0}
     - run: sudo apt update && sudo apt install chrpath -y
       shell: bash
+      if: runner.os == 'Linux'
     - run: chrpath -l -k -r "\$ORIGIN" {{ inputs.source_path }}/**/*.so*
       shell: bash
       if: runner.os == 'Linux'
