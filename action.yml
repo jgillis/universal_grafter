@@ -37,7 +37,7 @@ runs:
       shell: bash -el {0}
     - run: pip install wheel==0.31.1
       shell: bash -el {0}
-    - run: sudo apt update && apt install chrpath -y
+    - run: sudo apt update && sudo apt install chrpath -y
       shell: bash
     - run: chrpath -l -k -r "\$ORIGIN" {{ inputs.source_path }}/**/*.so*
       shell: bash
