@@ -22,7 +22,7 @@ inputs:
   skip_libs:
     description: 'libaries to ignore (colon-separated parts of filenames)'
     required: false
-    default: 'libknitro:libhsl:libworhp'
+    default: 'libknitro:libhsl:libworhp:libsnopt7'
 runs:
   using: "composite"
   steps:
