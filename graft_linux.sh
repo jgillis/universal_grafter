@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 docker run --rm ghcr.io/jgillis/${{ matrix.arch }}:production > /tmp/dockcross
