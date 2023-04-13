@@ -1,4 +1,6 @@
 #!/bin/bash
+
+set -eo pipefail
 PYTHONDIR=/opt/python/cp39-cp39/bin
 
 $PYTHONDIR/pip install pyelftools wheel==0.31.1
