@@ -9,6 +9,6 @@ git -C /tmp clone -b main https://github.com/jgillis/auditwheel.git
 pushd /tmp/auditwheel && $PYTHONDIR/python setup.py install && popd
 
 echo "1: $1"
-$PYTHONDIR/auditwheel show $1
+$PYTHONDIR/auditwheel show $1 || echo fail
 $PYTHONDIR/auditwheel repair -L . --exclude libknitro.so --exclude libworhp.so --exclude libhsl.so --exclude libsnopt7.so --exclude libcasadi-tp-openblas.so.0 --no-update-tags -w . $1
 
