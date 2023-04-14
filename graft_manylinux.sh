@@ -10,5 +10,5 @@ pushd /tmp/auditwheel && $PYTHONDIR/python setup.py install && popd
 
 echo "1: $1"
 $PYTHONDIR/auditwheel show $1
-$PYTHONDIR/auditwheel repair -L . --exclude libknitro.so --exclude libworhp.so --no-update-tags -w . $1
+$PYTHONDIR/auditwheel repair -L . --exclude libknitro.so --exclude libworhp.so --exclude libhsl.so --exclude libsnopt7.so --no-update-tags -w . $1
 
