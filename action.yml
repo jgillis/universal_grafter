@@ -45,7 +45,7 @@ runs:
       if: runner.os == 'Linux'
     - name: Create dummy wheel from {{ inputs.source_path }}
       run: |
-           rm ${{ inputs.source_path }})/spral_ssids
+           rm ${{ inputs.source_path }}/spral_ssids
            wheel_name=$(python ${{ github.action_path }}/create_wheel_local.py ${{ inputs.bitness }} ${{ inputs.dockcross }} ${{ inputs.source_path }})
            echo "wheel_name=$wheel_name" >> $GITHUB_ENV
       shell: bash -el {0}
