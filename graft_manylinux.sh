@@ -7,7 +7,7 @@ patchelf_version=$(patchelf --version)
 
 $PYTHONDIR/pip install pyelftools wheel==0.31.1
 if [[ $patchelf_version == *"0.12"* ]]; then
-    git -C /tmp clone -b fix https://github.com/jgillis/auditwheel/
+    git -C /tmp clone -b master https://github.com/jgillis/auditwheel/
 else
     git -C /tmp clone -b test https://github.com/jgillis/auditwheel.git
 fi
