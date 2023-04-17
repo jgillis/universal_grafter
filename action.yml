@@ -40,12 +40,11 @@ runs:
     - run: sudo apt update && sudo apt install chrpath -y
       shell: bash
       if: runner.os == 'Linux'
-    - run: chrpath -l -k -r "\$ORIGIN" ${{ inputs.source_path }}/*.so* || echo "failures"
+    - run: chrpath -l -k -r "\$ORIGIN" ${{ inputs.source_path }}/* || echo "failures"
       shell: bash
       if: runner.os == 'Linux'
     - name: Create dummy wheel from {{ inputs.source_path }}
       run: |
-           rm ${{ inputs.source_path }}/spral_ssids
            wheel_name=$(python ${{ github.action_path }}/create_wheel_local.py ${{ inputs.bitness }} ${{ inputs.dockcross }} ${{ inputs.source_path }})
            echo "wheel_name=$wheel_name" >> $GITHUB_ENV
       shell: bash -el {0}
