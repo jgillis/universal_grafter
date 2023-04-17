@@ -44,13 +44,14 @@ runs:
       shell: bash
       if: runner.os == 'Linux'
     - name: Create dummy wheel from {{ inputs.source_path }}
-      run: python ${{ github.action_path }}/create_wheel_local.py ${{ inputs.bitness }} ${{ inputs.dockcross }} ${{ inputs.source_path }}
+      run: wheel_name=$(python ${{ github.action_path }}/create_wheel_local.py ${{ inputs.bitness }} ${{ inputs.dockcross }} ${{ inputs.source_path }})
+           echo "wheel_name=$wheel_name" >> $GITHUB_ENV
       shell: bash -el {0}
       id: create-wheel
     - name: Repair wheel
       if: runner.os == 'Linux'
       run: |
-        ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{steps.create-wheel.outputs.wheel_name}}
+        ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{ env.wheel_name }}
       shell: bash -el {0}
     - name: Repair wheel
       if: runner.os == 'macOS'

@@ -136,4 +136,5 @@ else:
 write_record(bdist_dir, distinfo_dir)
 archive_wheelfile(fullname,work_dir)
 
-print("::set-output name=wheel_name::"+fullname+".whl")
+import sys
+sys.stdout.write(fullname+".whl")
