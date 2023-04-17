@@ -58,11 +58,11 @@ runs:
       if: runner.os == 'macOS'
       run: |
         pip install git+https://github.com/jgillis/delocate.git@master
-        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" --skip-libs "${{ inputs.skip_libs }}" ${{steps.create-wheel.outputs.wheel_name}}
+        DYLD_LIBRARY_PATH=${{ inputs.search_paths }} delocate-wheel -k -w . -L "" --skip-libs "${{ inputs.skip_libs }}" ${{ env.wheel_name }}
       shell: bash -el {0}
     - name: Extract repaired wheel to {{ inputs.destination_path }}
       run: |
-         unzip ${{steps.create-wheel.outputs.wheel_name}} -d ${{ inputs.destination_path }}
+         unzip ${{ env.wheel_name }} -d ${{ inputs.destination_path }}
          cp -r ${{ inputs.destination_path }}/dummy/* ${{ inputs.destination_path }}
          rm -rf ${{ inputs.destination_path }}/dummy ${{ inputs.destination_path }}/dummy-1.0.dist-info
       shell: bash
