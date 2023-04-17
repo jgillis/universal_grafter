@@ -22,7 +22,7 @@ inputs:
   skip_libs:
     description: 'libaries to ignore (colon-separated parts of filenames)'
     required: false
-    default: 'libknitro:libhsl:libworhp:libsnopt7'
+    default: 'libknitro:libhsl:libworhp:libsnopt7:libut:libmex:libmx:libeng'
 runs:
   using: "composite"
   steps:
@@ -51,7 +51,7 @@ runs:
     - name: Repair wheel
       if: runner.os == 'Linux'
       run: |
-        ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{ env.wheel_name }}
+        ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{ env.wheel_name }} ${{ inputs.skip_libs }}
       shell: bash -el {0}
     - name: Repair wheel
       if: runner.os == 'macOS'
