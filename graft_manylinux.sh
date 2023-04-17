@@ -3,9 +3,14 @@
 set -eo pipefail
 PYTHONDIR=/opt/python/cp39-cp39/bin
 
+patchelf_version=$(patchelf --version)
+
 $PYTHONDIR/pip install pyelftools wheel==0.31.1
-#git -C /tmp clone -b fix https://github.com/jgillis/auditwheel/
-git -C /tmp clone -b test https://github.com/jgillis/auditwheel.git
+if [[ $patchelf_version == *"0.12"* ]]; then
+    git -C /tmp clone -b fix https://github.com/jgillis/auditwheel/
+else
+    git -C /tmp clone -b test https://github.com/jgillis/auditwheel.git
+fi
 pushd /tmp/auditwheel && $PYTHONDIR/python setup.py install && popd
 
 echo "1: $1"
