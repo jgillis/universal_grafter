@@ -6,11 +6,13 @@ PYTHONDIR=/opt/python/cp39-cp39/bin
 patchelf_version=$(patchelf --version)
 
 $PYTHONDIR/pip install pyelftools wheel==0.31.1
+
 if [[ $patchelf_version == *"0.12"* ]]; then
-    git -C /tmp clone -b master https://github.com/jgillis/auditwheel/
-else
-    git -C /tmp clone -b test https://github.com/jgillis/auditwheel.git
+   curl -OL https://github.com/NixOS/patchelf/releases/download/0.14.5/patchelf-0.14.5-x86_64.tar.gz
+   sudo tar -xvf patchelf-0.14.5-x86_64.tar.gz -C /usr/local
 fi
+
+git -C /tmp clone -b test https://github.com/jgillis/auditwheel.git
 pushd /tmp/auditwheel && $PYTHONDIR/python setup.py install && popd
 
 echo "1: $1"
