@@ -68,4 +68,7 @@ runs:
          cp -r ${{ inputs.destination_path }}/dummy/* ${{ inputs.destination_path }}
          rm -rf ${{ inputs.destination_path }}/dummy ${{ inputs.destination_path }}/dummy-1.0.dist-info
       shell: bash
-
+    - name: Repair install names
+      if: runner.os == 'macOS'
+      run: python ${{ github.action_path }}/clean_install_name.py ${{ inputs.destination_path }}
+      shell: bash -el {0}
