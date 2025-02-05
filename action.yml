@@ -54,7 +54,7 @@ runs:
     - name: Repair wheel
       if: runner.os == 'Linux' && !contains(inputs.dockcross,'aarch64')
       run: |
-        ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{ env.wheel_name }} ${{ inputs.skip_libs }}
+        LD_LIBRARY_PATH=${{ inputs.search_paths }} ${{ github.action_path }}/graft_linux.sh ${{ inputs.dockcross }} ${{ env.wheel_name }} ${{ inputs.skip_libs }}
       shell: bash -el {0}
     - name: Repair wheel
       if: runner.os == 'macOS'
