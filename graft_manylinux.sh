@@ -18,6 +18,12 @@ pushd /tmp/auditwheel && $PYTHONDIR/python setup.py install && popd
 echo "1: $1"
 $PYTHONDIR/auditwheel show $1
 export LD_LIBRARY_PATH=`pwd`/casadi:`pwd`/dummy/casadi
+# Check if rustc is available.
+if command -v rustc >/dev/null 2>&1; then
+    # Append rustc's target library directory.
+    rust_target_libdir="$(rustc --print target-libdir)"
+    ld_lib_path="${ld_lib_path}:${rust_target_libdir}"
+fi
 excludes=""
 for lib in $(echo $2 | tr ":" "\n")
 do
