@@ -20,10 +20,15 @@ $PYTHONDIR/auditwheel show $1
 export LD_LIBRARY_PATH=`pwd`/casadi:`pwd`/dummy/casadi
 # Check if rustc is available.
 if command -v rustc >/dev/null 2>&1; then
+    echo "rustc detected"
     # Append rustc's target library directory.
     rust_target_libdir="$(rustc --print target-libdir)"
-    ld_lib_path="${ld_lib_path}:${rust_target_libdir}"
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${rust_target_libdir}
 fi
+
+echo "debug_grafting LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}"
+
+
 excludes=""
 for lib in $(echo $2 | tr ":" "\n")
 do
