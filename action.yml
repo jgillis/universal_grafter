@@ -22,7 +22,7 @@ inputs:
   skip_libs:
     description: 'libaries to ignore (colon-separated parts of filenames)'
     required: false
-    default: 'libknitro:libhsl:libworhp:libsnopt7:libut:libmex:libmx:libeng:libmadnlp_c:libbz2'
+    default: 'libknitro:libhsl:libworhp:libsnopt7:libut:libmex:libmx:libeng:libmadnlp_c'
 runs:
   using: "composite"
   steps:
@@ -71,4 +71,8 @@ runs:
     - name: Repair install names
       if: runner.os == 'macOS'
       run: python ${{ github.action_path }}/clean_install_name.py ${{ inputs.destination_path }}
+      shell: bash -el {0}
+    - name: Copy licenses
+      if: runner.os == 'macOS'
+      run: cp "$(find /Users/runner/miniconda3/pkgs -path '*/bzip2-*/info/licenses/LICENSE' -print -quit)" ${{ inputs.destination_path }}/include/licenses/LICENSE.bzip2.txt
       shell: bash -el {0}
