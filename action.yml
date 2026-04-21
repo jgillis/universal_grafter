@@ -26,7 +26,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: conda-incubator/setup-miniconda@v2.2.0
+    - uses: conda-incubator/setup-miniconda@77236efeba76d591229f44c36f2469426cc33dec
       with:
         python-version: 3.9
         auto-update-conda: true
