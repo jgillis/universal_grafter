@@ -30,7 +30,7 @@ runs:
       with:
         python-version: 3.9
         auto-update-conda: true
-        channels: anaconda, conda-forge
+        channels: conda-forge, anaconda
         activate-environment: grafting
     - run: |
         echo "runner.os  ${{ runner.os }}"
