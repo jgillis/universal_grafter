@@ -32,6 +32,8 @@ runs:
         auto-update-conda: true
         channels: conda-forge, anaconda
         activate-environment: grafting
+    - run: conda install -n grafting -y pip wheel setuptools
+      shell: bash -el {0}  
     - run: |
         echo "runner.os  ${{ runner.os }}"
       shell: bash -el {0}
