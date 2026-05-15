@@ -35,6 +35,14 @@ if os_name=="Linux":
     arch = "manylinux2014_x86_64"
   elif arch=="manylinux2014-x86":
     arch = "manylinux2014_i686"
+  elif arch=="manylinux_2_28-x64":
+    arch = "manylinux_2_28_x86_64"
+  elif arch=="manylinux_2_28-x86":
+    arch = "manylinux_2_28_i686"
+  elif arch=="manylinux_2_34-x64":
+    arch = "manylinux_2_34_x86_64"
+  elif arch=="manylinux_2_34-x86":
+    arch = "manylinux_2_34_i686"
   tag = "cp%s-none-%s" % (pyversion,arch.replace("-","_"))
 elif os_name=="Darwin":
   tag = ["cp%s-none-macosx_10_13_x86_64" % (pyversion),
